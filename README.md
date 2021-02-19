@@ -16,7 +16,7 @@ python main.py --train True
 ```
 
 ## Test
-Since the default setting for the train option is *False*, one may use the below command for the test of the model. The outputs are classification probabilities and photometric redshifts for individual samples. The outputs will be dumped in '*npy*' format.
+Since the default setting for the train option is *False*, one may use the below command for the test of the model. The outputs are classification probabilities and photometric redshifts for individual samples. The outputs will be dumped in *npy* format.
 ```
 python main.py
 ```
