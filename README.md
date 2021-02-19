@@ -9,6 +9,11 @@ This package requires Python >= 3.7.
 
 # Run Model
 
+## Dataset Preparation
+```
+TBA
+```
+
 ## Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
 ```
@@ -16,7 +21,7 @@ python main.py --train True
 ```
 
 ## Test
-Since the default setting for the train option is *False*, one may use the below command for the test of the model. The outputs are classification probabilities and photometric redshifts for individual samples.
+Since the default setting for the train option is *False*, one may use the below command for the test of the model. The outputs are classification probabilities and photometric redshifts for individual samples. The outputs will be dumped in *npy* format.
 ```
 python main.py
 ```
