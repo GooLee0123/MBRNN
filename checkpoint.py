@@ -53,7 +53,7 @@ class Checkpoint():
 
     def save(self):
         ## To remove the outdated checkpoints, uncomment below codes.
-        ## Note that the below commands delete every prior checkpoint.
+        ## However, note that the below lines delete every prior checkpoint.
 
         # outdated = os.listdir(self.opt.ckpt_fd)
         # for od in outdated:
