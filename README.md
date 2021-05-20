@@ -27,4 +27,4 @@ python main.py
 ```
 
 ## Option Change
-We deploy the model with the best-performing structure in our paper, but one can adjust model structure and other setting by modifying the options of the *config_file/config.cfg* file.
+We deploy the model with the best-performing configuration in our paper, but one can adjust the model structure and other setting by modifying the options of the *config_file/config.cfg* file.
