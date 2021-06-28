@@ -3,7 +3,7 @@
 # Installation
 This package requires Python >= 3.7.
 
-## Prerequisites 
+## Library Dependencies 
 - PyTorch: Refer to [PyTorch installation guide](https://pytorch.org/get-started/locally/) to install PyTorch with proper version for your local setting.
 - Numpy: pip install numpy (Refer [here](https://github.com/numpy/numpy) for any issues installing Numpy).
 
