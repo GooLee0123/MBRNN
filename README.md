@@ -9,7 +9,7 @@ This package requires Python >= 3.7.
 
 # Run Model
 
-## Dataset Preparation
+## Data Preparation
 ```
 TBP
 ```
