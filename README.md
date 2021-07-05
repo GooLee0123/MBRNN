@@ -116,6 +116,7 @@ for row_ind in range(0, num_rows):
             out_str = out_str + "%.8f " % (oneitem)
     outfd.write(out_str.strip() + "\n")
 ```
+The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py.
 
 ## Training of The Model
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
