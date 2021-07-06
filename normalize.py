@@ -1,24 +1,20 @@
 import sys
 import os
 
-import pandas as pd
 import numpy as np
 
 data_fn = sys.argv[1]
-# data = np.load(data_fn)
-data = pd.read_csv(data_fn, delimiter=' ', header=None).values.T
+data = np.load(data_fn)
 
 rseed = 7324
 np.random.seed(rseed)
-# shuffle = np.arange(0, data.shape[1])
-shuffle = np.genfromtxt('../PS1_MBRNN_deploy/shuffle_idx.txt', dtype=np.int32)
+shuffle = np.arange(0, data.shape[1])
+
 data = data[:, shuffle]
 
-dclass = 'galaxy'
-outdn = './PS1_data_test'
+outdn = './PS1_data'
 if not os.path.exists(outdn):
     os.makedirs(outdn)
-print("output dir %s" % outdn)
 
 # Data ratio for training, validation
 ratio_train = 0.8
@@ -27,7 +23,6 @@ ratio_val = 0.1
 X = np.array(data[4:21], dtype=np.float32)
 X[-1] = np.log(X[-1])  # E(B-V)
 
-IDs = data[0]
 zerr = data[3].astype(np.float32)
 zspec = data[2].astype(np.float32)
 zspec[zspec < 0] = 0
