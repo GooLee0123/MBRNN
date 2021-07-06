@@ -10,7 +10,8 @@ data = pd.read_csv(data_fn, delimiter=' ', header=None).values.T
 
 rseed = 7324
 np.random.seed(rseed)
-shuffle = np.arange(0, data.shape[1])
+# shuffle = np.arange(0, data.shape[1])
+shuffle = np.genfromtxt('../PS1_MBRNN_deploy/shuffle_idx.txt')
 data = data[:, shuffle]
 
 dclass = 'galaxy'
