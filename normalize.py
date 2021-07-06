@@ -1,10 +1,12 @@
 import sys
 import os
 
+import pandas as pd
 import numpy as np
 
 data_fn = sys.argv[1]
-data = np.load(data_fn)
+# data = np.load(data_fn)
+data = pd.read_csv(data_fn, delimiter=' ', header=None).values.T
 
 rseed = 7324
 np.random.seed(rseed)
@@ -12,7 +14,7 @@ shuffle = np.arange(0, data.shape[1])
 data = data[:, shuffle]
 
 dclass = 'galaxy'
-outdn = './PS1_data'
+outdn = './PS1_data_test'
 if not os.path.exists(outdn):
     os.makedirs(outdn)
 print("output dir %s" % outdn)
