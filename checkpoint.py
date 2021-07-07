@@ -52,14 +52,6 @@ class Checkpoint():
                           path=opt.ckpt_fd)
 
     def save(self):
-        ## To remove the outdated checkpoints, uncomment below codes.
-        ## However, note that the below lines delete every prior checkpoint.
-
-        # outdated = os.listdir(self.opt.ckpt_fd)
-        # for od in outdated:
-        #     self.logger.info("Remove outdated checkpoint %s" % od)
-        #     shutil.rmtree(os.path.join(self.opt.ckpt_fd, od))
-
         date_time = time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime())
         path = os.path.join(self.opt.ckpt_fd, date_time)
         if os.path.exists(path):
