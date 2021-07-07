@@ -118,7 +118,7 @@ for row_ind in range(0, num_rows):
 ```
 The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py.
 
-## Training of The Model
+## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
 ```
 python main.py --train True
