@@ -116,7 +116,8 @@ for row_ind in range(0, num_rows):
             out_str = out_str + "%.8f " % (oneitem)
     outfd.write(out_str.strip() + "\n")
 ```
-The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py.
+The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py. If the data variable in the following 
+code snippet has values 0.40379906 0.07061161 0.25110054 0.15079354 0.11000061 0.06245294 0.18779945 0.12533208 -0.02160072 0.20311637 -0.10390091 0.10137894 0.40800095 0.26574471 0.76920128 0.25393150 0.01558769 for data[4:21] which corresponds to the input features including the E(B-V) as the last value,
 
 ## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
