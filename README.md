@@ -148,7 +148,7 @@ python main.py
 ```
 
 ## Model Inference
-One may use the below command for the test of the model.
+One may use the below command for the inference of the model.
 
 ```
 python main.py --infer
