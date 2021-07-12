@@ -134,7 +134,7 @@ labels = np.zeros(len(zspec))
 Y = np.vstack((labels, zspec, zerr)).astype(np.float32).T
 
 normedX = (X-use_minX)/(use_maxX-use_minX)*2.-1.
-normed = np.hstack((Y, normedX.T.astype(np.float32)))a
+normed = np.hstack((Y, normedX.T.astype(np.float32)))
 
 np.save("example.npy", normed)
 ```
