@@ -338,6 +338,10 @@ def infer(db, model, opt):
 def save_results(outputs, opt):
     if not os.path.exists(opt.out_fd):
         os.makedirs(opt.out_fd)
+    if opt.infer:
+        fn = 'inference_output.npy'
+    elif opt.test:
+        fn = 'test_output.npy'
     out_fn = os.path.join(opt.out_fd, 'output.npy')
 
     np.save(out_fn, outputs)
