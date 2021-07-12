@@ -18,7 +18,7 @@ class Dataset(Dataset):
         self.ncls = opt.ncls
         self.bin_dn = opt.bin_dn
         self.data_dn = opt.data_dn
-        self.train = opt.infer
+        self.train = opt.train
 
         self.X, self.y, self.z, self.zcls, self.binc = self._load_data()
 
