@@ -139,17 +139,19 @@ normed = np.hstack((Y, normedX.T.astype(np.float32)))a
 np.save("example.npy", normed)
 ```
 
+Train, validation, and test samples should be stored in files named 'train.npy', 'val.npy', 'test.npy' under a directory 'PS1_data', respectively.
+
 ## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
 ```
-python main.py --train True
-```
-
-## Model Testing
-Since the default setting for the train option is *False*, one may use the below command for the test of the model.
-
-```
 python main.py
+```
+
+## Model Inference
+One may use the below command for the test of the model.
+
+```
+python main.py --infer
 ```
 
 The process will dump an array shaped [*nsamp*, *nbin*+1] into the folder *Outputs* with *npy* format, where *nsamp* and *nbin* are the number of samples and bins, respectively. The first *nbin* columns of the array are model output probabilities, and the last column is the photometric redshift.
