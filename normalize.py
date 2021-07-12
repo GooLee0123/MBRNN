@@ -30,8 +30,8 @@ Y = np.vstack((labels, zspec, zerr)).astype(np.float32).T
 minX = np.min(X, axis=1).reshape(-1, 1)
 maxX = np.max(X, axis=1).reshape(-1, 1)
 
-print(minX)
-print(maxX)
+print(minX.ravel())
+print(maxX.ravel())
 quit()
 normedX = (X-minX)/(maxX-minX)*2.-1.
 
