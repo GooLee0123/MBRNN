@@ -331,7 +331,7 @@ def infer(db, model, opt):
                          zmode.reshape(-1, 1),
                          zsig.reshape(-1, 1)))
     for ind in range(0, len(zphot)):
-        print("%d %.6f" % (ind+1, zphot[ind]))
+        print("Photo-z: %d %.6f %.6f %.6f" % (ind+1, zphot[ind], zmode[ind], zsig[ind]))
     save_results(outputs, opt)
 
 
