@@ -57,13 +57,14 @@ def Parser():
         parser.set_defaults(**OptionDict[i])
 
     parser.add_argument('--infer', action='store_true', dest='infer')
+    parser.add_argument('--test', action='store_true', dest='test')
     parser.add_argument('--log-level',
                         default='info', type=str,
                         dest='log_level', metavar="INFO")
 
     opt = config_processing(parser.parse_args(remaining_argv))
-    opt.train = not opt.infer
-    del opt.infer
+    if opt.infer or opt.test:
+        opt.train = False
 
     logging.info(opt)
 
