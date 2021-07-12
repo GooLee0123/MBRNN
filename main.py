@@ -47,6 +47,10 @@ def prepare_db(opt):
 
         db['train'] = train_loader
         db['val'] = val_loader
+    elif opt.infer:
+        infer_set = PS1.Dataset('infer', opt)
+        infer_loader = torch.utils.data.DataLoader(infer_set, **evdparams)
+        db['infer'] = infer_loader
     else:
         test_set = PS1.Dataset('test', opt)
 
@@ -273,6 +277,47 @@ def test(db, model, opt):
     save_results(outputs, opt)
 
 
+def infer(db, model, opt):
+    logging.info("Inference started")
+
+    # model setting
+    model = set_loaded_model(model, opt=opt)
+    model.eval()
+
+    test_generator = db['infer']
+
+    test_set = test_generator.dataset
+    binc = test_set.binc.to(opt.device)
+    dlen = len(test_set)
+
+    probs_placeholder = torch.empty(dlen, opt.ncls).to(opt.device)
+    zphot_placeholder = torch.empty(dlen).to(opt.device)
+    for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
+        local_batch = local_batch.to(opt.device)
+        local_zbin = local_zbin.to(opt.device)
+
+        # input into model
+        out_probs = model(local_batch)
+
+        # get the index of the maximum log-probability
+        pred = out_probs.data.max(1, keepdim=True)[1]
+
+        zphot = torch.sum(out_probs*binc, dim=1).view(-1)
+
+        sidx = bepoch*opt.batch_size
+        eidx = sidx+opt.batch_size
+
+        probs_placeholder[sidx:eidx] = out_probs
+        zphot_placeholder[sidx:eidx] = zphot
+
+    probs = probs_placeholder.cpu().detach().numpy()
+    zphot = zphot_placeholder.cpu().detach().numpy()
+    outputs = np.hstack((probs, zphot.reshape(-1, 1)))
+    for ind in range(0, len(zphot)):
+        print("%d %.6f" % (ind+1, zphot[ind]))
+    save_results(outputs, opt)
+
+
 def save_results(outputs, opt):
     if not os.path.exists(opt.out_fd):
         os.makedirs(opt.out_fd)
@@ -311,6 +356,8 @@ def main():
     if opt.train:
         optim = prepare_optim(model)
         train(db, model, optim, opt)
+    elif opt.infer:
+        infer(db, model, opt)
     else:
         test(db, model, opt)
 
