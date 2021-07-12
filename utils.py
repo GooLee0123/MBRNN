@@ -63,6 +63,7 @@ def Parser():
 
     opt = config_processing(parser.parse_args(remaining_argv))
     opt.train = not opt.infer
+    del opt.infer
 
     logging.info(opt)
 
