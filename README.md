@@ -139,7 +139,7 @@ normed = np.hstack((Y, normedX.T.astype(np.float32)))a
 np.save("example.npy", normed)
 ```
 
-For errorless implementation of the code, train, validation, and test samples should be stored in the files named 'train.npy', 'val.npy', 'test.npy' under the directory 'PS1_data', respectively.
+For the errorless implementation of the code, train, validation, and test samples should be stored in the files named 'train.npy', 'val.npy', 'test.npy' under the directory 'PS1_data', respectively. One may do so by modifying "example.npy" in the last line of the above code snippet.
 
 ## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using the below command.
