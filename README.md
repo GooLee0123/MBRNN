@@ -149,8 +149,8 @@ Although our deploy version code includes the pre-trained network, one can train
 python main.py
 ```
 
-## Model Inference
-One may use the below command for the inference of the trained model.
+## Model Testing
+Since the default setting for the train option is *False*, one may use the below command for the test of the trained model.
 
 ```
 python main.py --infer
