@@ -139,7 +139,7 @@ normed = np.hstack((Y, normedX.T.astype(np.float32)))
 np.save("example.npy", normed)
 ```
 
-Above code snippet is for min-max normalization of loaded PS1 data. Note that minima and maxima values of input features referred to as 'use_minX' and 'use_maxX' in the snippet were estimated from the PS1 data. When training the model with different data, the values should be separately estimated. 
+The above code snippet is for the min-max normalization of loaded PS1 data. Note that minima and maxima values of input features referred to as 'use_minX' and 'use_maxX' were estimated from the PS1 data. When training the model with different data, the values should be separately estimated. 
 
 For the errorless implementation of the code, train, validation, and test samples should be stored in the files named 'train.npy', 'val.npy', 'test.npy' under the directory 'PS1_data', respectively. One may do so by modifying "example.npy" in the last line of the above code snippet.
 
