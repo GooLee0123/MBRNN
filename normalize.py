@@ -1,10 +1,12 @@
 import sys
 import os
 
+import pandas as pd
 import numpy as np
 
 data_fn = sys.argv[1]
-data = np.load(data_fn, allow_pickle=True).T
+# data = np.load(data_fn, allow_pickle=True).T
+data = pd.read_csv(data_fn, header=None, delimiter=' ').values.T
 
 rseed = 7324
 np.random.seed(rseed)
