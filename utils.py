@@ -56,7 +56,7 @@ def Parser():
     for i in range(Noption):
         parser.set_defaults(**OptionDict[i])
 
-    parser.add_argument('--infer', action='store_true', dest='train')
+    parser.add_argument('--infer', action='store_true', dest='infer')
     parser.add_argument('--log-level',
                         default='info', type=str,
                         dest='log_level', metavar="INFO")
