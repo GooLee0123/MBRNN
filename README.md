@@ -150,10 +150,10 @@ python main.py
 ```
 
 ## Model Testing
-Since the default setting for the train option is *False*, one may use the below command for the test of the trained model.
+One may use the below command for the test of the trained model.
 
 ```
-python main.py --infer
+python main.py --test
 ```
 
 The process will dump an array shaped [*nsamp*, *nbin*+1] into the folder '*Outputs*' with Numpy format, where *nsamp* and *nbin* are the number of samples and bins, respectively. The first *nbin* columns of the array are model output probabilities, and the last column is the photometric redshift.
