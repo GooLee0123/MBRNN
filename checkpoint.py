@@ -66,7 +66,7 @@ class Checkpoint():
         torch.save(
             self.model.state_dict(), os.path.join(path, model_state))
 
-        log_msg = "Validation loss being smaller than previous"
+        log_msg = "Validation loss being smaller than previous "
         log_msg += "minimum, checkpoint is saved at %s" % path
         self.logger.info(log_msg)
         return path
