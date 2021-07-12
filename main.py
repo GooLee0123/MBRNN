@@ -292,6 +292,8 @@ def infer(db, model, opt):
 
     probs_placeholder = torch.empty(dlen, opt.ncls).to(opt.device)
     zphot_placeholder = torch.empty(dlen).to(opt.device)
+    zmode_placeholder = torch.empty(dlen).to(opt.device)
+    zsig_placeholder = torch.empty(dlen).to(opt.device)
     for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
         local_batch = local_batch.to(opt.device)
         local_zbin = local_zbin.to(opt.device)
@@ -302,17 +304,32 @@ def infer(db, model, opt):
         # get the index of the maximum log-probability
         pred = out_probs.data.max(1, keepdim=True)[1]
 
+        # average redshifts
         zphot = torch.sum(out_probs*binc, dim=1).view(-1)
+
+        # mode redshifts
+        prob_argmax = torch.argmax(out_probs, dim=1)
+        zmode = binc[prob_argmax]
+
+        # standard deviation
+        zsig = torch.sum(out_probs*(binc-zphot.view(-1, 1))**2., dim=1)
 
         sidx = bepoch*opt.batch_size
         eidx = sidx+opt.batch_size
 
         probs_placeholder[sidx:eidx] = out_probs
         zphot_placeholder[sidx:eidx] = zphot
+        zmode_placeholder[sidx:eidx] = zmode
+        zsig_placeholder[sidx:eidx] = zsig
 
     probs = probs_placeholder.cpu().detach().numpy()
     zphot = zphot_placeholder.cpu().detach().numpy()
-    outputs = np.hstack((probs, zphot.reshape(-1, 1)))
+    zmode = zmode_placeholder.cpu().detach().numpy()
+    zsig = zsig_placeholder.cpu().detach().numpy()
+    outputs = np.hstack((probs,
+                         zphot.reshape(-1, 1),
+                         zmode.reshape(-1, 1),
+                         zsig.reshape(-1, 1)))
     for ind in range(0, len(zphot)):
         print("%d %.6f" % (ind+1, zphot[ind]))
     save_results(outputs, opt)
