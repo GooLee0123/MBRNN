@@ -342,7 +342,7 @@ def save_results(outputs, opt):
         fn = 'inference_output.npy'
     elif opt.test:
         fn = 'test_output.npy'
-    out_fn = os.path.join(opt.out_fd, 'output.npy')
+    out_fn = os.path.join(opt.out_fd, 'fn')
 
     np.save(out_fn, outputs)
     logging.info("Outputs are saved at %s" % out_fn)
