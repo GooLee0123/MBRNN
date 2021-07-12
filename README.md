@@ -116,32 +116,12 @@ for row_ind in range(0, num_rows):
             out_str = out_str + "%.8f " % (oneitem)
     outfd.write(out_str.strip() + "\n")
 ```
-The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py. If the X variable in the following 
-code snippet has values of 0.40379906 0.07061161 0.25110054 0.15079354 0.11000061 0.06245294 0.18779945 0.12533208 -0.02160072 0.20311637 -0.10390091 0.10137894 0.40800095 0.26574471 0.76920128 0.25393150 0.01558769 for data[4:21] which corresponds to the input features including the E(B-V) as the last value, you can produce the input data in the right format. Here, the example data has the redshift 1.11199999 with its uncertainty 0.001 which is not 
-used in the training step.
-```
-import numpy as np
+The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py. The produced CSV file can be 
+changed to the Numpy format with the right normalization step. See convert_csv_to_npy.py and example_inference_data.csv as examples.
 
-use_minX = np.array([-7.9118004., 0., -9.394201, 0., -3.9944992, 0., -4.2058992, 0., -2.851099, 0., -6.1702003, 0., -4.963501, 0., -6.359, 0., -5.72029], dtype=np.float32) # used in the paper
-use_maxX = np.array([5.9019985, 0.5281896, 5.8084, 0.46895373, 2.9131012, 0.52544963, 3.900301, 0.45075417, 3.905901, 0.5185917, 4.9472, 0.4172655, 6.077201, 0.5891852, 7.9728994, 0.46186885, 3.2700593], dtype=np.float32) # used in the paper
+The code convert_csv_to_npy.py is for the data min-max normalization. Note that minima and maxima values of input features referred to as 'use_minX' and 'use_maxX' were estimated from the loaded PS1 data. When training the model with different data, the values should be separately estimated.
 
-# Preparation of X and Y
-X = np.array([0.40379906, 0.07061161, 0.25110054, 0.15079354, 0.11000061, 0.06245294, 0.18779945, 0.12533208, -0.02160072, 0.20311637, -0.10390091, 0.10137894, 0.40800095, 0.26574471, 0.76920128, 0.25393150, 0.01558769], dtype=np.float32)
-X[-1] = np.log(X[-1]) # E(B-V)
-zspec = np.array([1.11199999], dtype=np.float32)
-zerr = np.array([0.001], dtype=np.float32) # not really used
-labels = np.zeros(len(zspec))
-Y = np.vstack((labels, zspec, zerr)).astype(np.float32).T
-
-normedX = (X-use_minX)/(use_maxX-use_minX)*2.-1.
-normed = np.hstack((Y, normedX.T.astype(np.float32)))
-
-np.save("example.npy", normed)
-```
-
-The code snippet is for the data min-max normalization. Note that minima and maxima values of input features referred to as 'use_minX' and 'use_maxX' were estimated from the loaded PS1 data. When training the model with different data, the values should be separately estimated.
-
-For the errorless implementation of the code, train, validation, and test samples should be stored in the files named 'train.npy', 'val.npy', 'test.npy' under the directory 'PS1_data', respectively. One may do so by modifying "example.npy" in the last line of the code.
+For the errorless implementation of the code, train, validation, and test samples should be stored in the files named 'train.npy', 'val.npy', 'test.npy' under the directory 'PS1_data', respectively. For inference, the file 'infer.npy' stored in the 'PS1_data' is used as input.
 
 ## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using the below command.
@@ -154,6 +134,15 @@ One may use the below command for the test of the trained model.
 
 ```
 python main.py --test
+```
+
+The process will dump an array shaped [*nsamp*, *nbin*+1] into the folder '*Outputs*' with Numpy format, where *nsamp* and *nbin* are the number of samples and bins, respectively. The first *nbin* columns of the array are model output probabilities, and the last column is the photometric redshift.
+
+## Model Inference
+People can conduct inference for the given data with the provided trained model.
+
+```
+python main.py --infer
 ```
 
 The process will dump an array shaped [*nsamp*, *nbin*+1] into the folder '*Outputs*' with Numpy format, where *nsamp* and *nbin* are the number of samples and bins, respectively. The first *nbin* columns of the array are model output probabilities, and the last column is the photometric redshift.
