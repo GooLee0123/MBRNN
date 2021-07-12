@@ -116,7 +116,28 @@ for row_ind in range(0, num_rows):
             out_str = out_str + "%.8f " % (oneitem)
     outfd.write(out_str.strip() + "\n")
 ```
-The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py.
+The code provided here loads the data in the format of NumPy file saved in Pickle as coded in PS1.py. If the X variable in the following 
+code snippet has values of 0.40379906 0.07061161 0.25110054 0.15079354 0.11000061 0.06245294 0.18779945 0.12533208 -0.02160072 0.20311637 -0.10390091 0.10137894 0.40800095 0.26574471 0.76920128 0.25393150 0.01558769 for data[4:21] which corresponds to the input features including the E(B-V) as the last value, you can produce the input data in the right format. Here, the example data has the redshift 1.11199999 with its uncertainty 0.001 which is not 
+used in the training step.
+```
+import numpy as np
+
+use_minX = # used in the paper
+use_maxX = # used in the paper
+
+# Preparation of X and Y
+X = np.array([0.40379906, 0.07061161, 0.25110054, 0.15079354, 0.11000061, 0.06245294, 0.18779945, 0.12533208, -0.02160072, 0.20311637, -0.10390091, 0.10137894, 0.40800095, 0.26574471, 0.76920128, 0.25393150, 0.01558769], dtype=np.float32)
+X[-1] = np.log(X[-1]) # E(B-V)
+zspec = np.array([1.11199999], dtype=np.float32)
+zerr = np.array([0.001], dtype=np.float32) # not really used
+labels = np.zeros(len(zspec))
+Y = np.vstack((labels, zspec, zerr)).astype(np.float32).T
+
+normedX = (X-use_minX)/(use_maxX-use_minX)*2.-1.
+normed = np.hstack((Y, normedX.T.astype(np.float32)))a
+
+np.save("example.npy", normed)
+```
 
 ## Model Training
 Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
