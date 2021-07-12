@@ -148,7 +148,7 @@ python main.py
 ```
 
 ## Model Inference
-One may use the below command for the inference of the model.
+One may use the below command for the inference of the trained model.
 
 ```
 python main.py --infer
