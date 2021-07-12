@@ -142,7 +142,7 @@ np.save("example.npy", normed)
 For errorless implementation of the code, train, validation, and test samples should be stored in files named 'train.npy', 'val.npy', 'test.npy' under a directory 'PS1_data', respectively.
 
 ## Model Training
-Although our deploy version code includes the pre-trained network, one can train a new model from scratch using below command.
+Although our deploy version code includes the pre-trained network, one can train a new model from scratch using the below command.
 ```
 python main.py
 ```
