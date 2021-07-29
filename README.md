@@ -1,5 +1,5 @@
 # MBRNN Pytorch Implementation
-This repository contains a [PyTorch](https://pytorch.org/) implementation of the MBRNN introduced in "[Lee et al. 2021]()".
+This repository contains a [PyTorch](https://pytorch.org/) implementation of the MBRNN introduced in "[Lee et al. 2021]()". Note that only the single MBRNN model is embodied in the code, excluding the execution of ensemble learning.
 
 # Installation
 This package requires Python >= 3.7.
