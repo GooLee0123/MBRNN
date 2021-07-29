@@ -245,25 +245,26 @@ def test(db, model, opt):
 
     probs_placeholder = torch.empty(dlen, opt.ncls).to(opt.device)
     zphot_placeholder = torch.empty(dlen).to(opt.device)
-    for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
-        local_batch = local_batch.to(opt.device)
-        local_zbin = local_zbin.to(opt.device)
+    with torch.no_grad():
+        for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
+            local_batch = local_batch.to(opt.device)
+            local_zbin = local_zbin.to(opt.device)
 
-        # input into model
-        out_probs = model(local_batch)
+            # input into model
+            out_probs = model(local_batch)
 
-        # get the index of the maximum log-probability
-        pred = out_probs.data.max(1, keepdim=True)[1]
-        correct_mask = pred.eq(local_zbin.data.view_as(pred))
-        test_correct += correct_mask.cpu().sum()
+            # get the index of the maximum log-probability
+            pred = out_probs.data.max(1, keepdim=True)[1]
+            correct_mask = pred.eq(local_zbin.data.view_as(pred))
+            test_correct += correct_mask.cpu().sum()
 
-        zphot = torch.sum(out_probs*binc, dim=1).view(-1)
+            zphot = torch.sum(out_probs*binc, dim=1).view(-1)
 
-        sidx = bepoch*opt.batch_size
-        eidx = sidx+opt.batch_size
+            sidx = bepoch*opt.batch_size
+            eidx = sidx+opt.batch_size
 
-        probs_placeholder[sidx:eidx] = out_probs
-        zphot_placeholder[sidx:eidx] = zphot
+            probs_placeholder[sidx:eidx] = out_probs
+            zphot_placeholder[sidx:eidx] = zphot
 
     tdat_len = len(test_generator.dataset)
     test_acc = float(test_correct)/tdat_len
@@ -294,33 +295,34 @@ def infer(db, model, opt):
     zphot_placeholder = torch.empty(dlen).to(opt.device)
     zmode_placeholder = torch.empty(dlen).to(opt.device)
     zsig_placeholder = torch.empty(dlen).to(opt.device)
-    for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
-        local_batch = local_batch.to(opt.device)
-        local_zbin = local_zbin.to(opt.device)
+    with torch.no_grad():
+        for bepoch, (local_batch, local_zbin) in enumerate(test_generator):
+            local_batch = local_batch.to(opt.device)
+            local_zbin = local_zbin.to(opt.device)
 
-        # input into model
-        out_probs = model(local_batch)
+            # input into model
+            out_probs = model(local_batch)
 
-        # get the index of the maximum log-probability
-        pred = out_probs.data.max(1, keepdim=True)[1]
+            # get the index of the maximum log-probability
+            pred = out_probs.data.max(1, keepdim=True)[1]
 
-        # average redshifts
-        zphot = torch.sum(out_probs*binc, dim=1).view(-1)
+            # average redshifts
+            zphot = torch.sum(out_probs*binc, dim=1).view(-1)
 
-        # mode redshifts
-        prob_argmax = torch.argmax(out_probs, dim=1)
-        zmode = binc[prob_argmax]
+            # mode redshifts
+            prob_argmax = torch.argmax(out_probs, dim=1)
+            zmode = binc[prob_argmax]
 
-        # standard deviation
-        zsig = torch.sum(out_probs*(binc-zphot.view(-1, 1))**2., dim=1)
+            # standard deviation
+            zsig = torch.sum(out_probs*(binc-zphot.view(-1, 1))**2., dim=1)
 
-        sidx = bepoch*opt.batch_size
-        eidx = sidx+opt.batch_size
+            sidx = bepoch*opt.batch_size
+            eidx = sidx+opt.batch_size
 
-        probs_placeholder[sidx:eidx] = out_probs
-        zphot_placeholder[sidx:eidx] = zphot
-        zmode_placeholder[sidx:eidx] = zmode
-        zsig_placeholder[sidx:eidx] = zsig
+            probs_placeholder[sidx:eidx] = out_probs
+            zphot_placeholder[sidx:eidx] = zphot
+            zmode_placeholder[sidx:eidx] = zmode
+            zsig_placeholder[sidx:eidx] = zsig
 
     probs = probs_placeholder.cpu().detach().numpy()
     zphot = zphot_placeholder.cpu().detach().numpy()
