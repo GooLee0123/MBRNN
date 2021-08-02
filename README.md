@@ -149,3 +149,5 @@ The process will dump an array shaped [*nsamp*, *nbin*+3] into the folder '*Outp
 
 ## Option Change
 We deploy the model with the best-performing configuration described in our paper, but one can adjust the model structure and other settings by modifying the options of the *config_file/config.cfg* file.
+
+![Image](./redshift_density_gamma.pdf)
