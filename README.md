@@ -150,14 +150,7 @@ The process will dump an array shaped [*nsamp*, *nbin*+3] into the folder '*Outp
 ## Option Change
 We deploy the model with the best-performing configuration described in our paper, but one can adjust the model structure and other settings by modifying the options of the *config_file/config.cfg* file.
 
-<table>
-  <tr>
-    <td width="30%">
-        This <a href="https://www.youtube.com/watch?v=Ynb6X0KZKxY">10 minute video</a> provides an overview of the motivations for machine learning operations as well as a high level overview on some of the tools in this repo.
-    </td>
-    <td width="70%">
-        <a href="https://www.youtube.com/watch?v=Ynb6X0KZKxY"><img src="./redshift_density_gamma.png"></a>
-    </td>
-  </tr>
-</table>
+<td width="70%">
+    <img src="./redshift_density_gamma.png"></a>
+</td>
 
