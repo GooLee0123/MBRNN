@@ -150,6 +150,10 @@ The process will dump an array shaped [*nsamp*, *nbin*+3] into the folder '*Outp
 ## Option Change
 We deploy the model with the best-performing configuration described in our paper, but one can adjust the model structure and other settings by modifying the options of the *config_file/config.cfg* file.
 
+
+## Model Testing and Inference with Different Gamma of Anchor Loss
+As shown in the below figure, the distributions of photometric redshifts shift toward the higher redshift region as the value of weight parameter gamma of anchor loss increases. Since the models trained with gamma of 0.0, 2.0, 5.0, and 8.0 are deployed together, one can run the model testing and inference by modifying the gamma in the configuration file *config_file/config.cfg*.
+
 <td width="70%">
     <img src="./redshift_density_gamma.png"></a>
 </td>
