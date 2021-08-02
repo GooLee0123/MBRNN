@@ -156,7 +156,7 @@ We deploy the model with the best-performing configuration described in our pape
         This <a href="https://www.youtube.com/watch?v=Ynb6X0KZKxY">10 minute video</a> provides an overview of the motivations for machine learning operations as well as a high level overview on some of the tools in this repo.
     </td>
     <td width="70%">
-        <a href="https://www.youtube.com/watch?v=Ynb6X0KZKxY"><img src="redshift_density_gamma.pdf"></a>
+        <a href="https://www.youtube.com/watch?v=Ynb6X0KZKxY"><img src="./redshift_density_gamma.pdf"></a>
     </td>
   </tr>
 </table>
