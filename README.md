@@ -152,7 +152,7 @@ We deploy the model with the best-performing configuration described in our pape
 
 
 ### Model Testing and Inference with Different Gamma of Anchor Loss
-As shown in the below figure, the distributions of photometric redshifts shift toward the higher redshift region as the value of weight parameter gamma of anchor loss increases. Since the models trained with gamma of 0.0, 2.0, 5.0, and 8.0 are deployed together, one can run the model testing and inference by modifying the gamma option in the configuration file.
+As shown in the below figure, the distributions of photometric redshifts shift toward the higher redshift region as the value of weight parameter gamma of anchor loss increases. Since the models trained with gamma of 0.0, 2.0, 5.0, and 8.0 are deployed together, one can run the model testing and inference by modifying the gamma option in the configuration file to one of the provided gammas.
 
 <td width="70%">
     <img src="./redshift_density_gamma.png"></a>
